@@ -1,8 +1,20 @@
 import {useState} from "react";
 import cn from 'classnames';
+import {useDispatch, useSelector} from "react-redux";
+import {addPizzaAC} from "../../Redux/cart-reducer";
+import {getCartSelector} from "../../Redux/selectors/cart-selectors";
 
 
-export const PizzaBlock = ({name, imageUrl, types, sizes, price}) => {
+export const PizzaBlock = ({types, sizes, imageUrl, name, price}) => {
+    const dispatch = useDispatch()
+    const cart = useSelector(getCartSelector).cart
+    let addedPizzasCount = 0
+    if (cart.length > 0) {
+        let addedPizza = cart.find(item => item.name === name)
+        if (addedPizza) {
+            addedPizzasCount = addedPizza.count
+        }
+    }
     const avaliableTypes = ['тонкое', 'традиционное']
     const avaliableSizes = [26, 30, 40]
     const [activeType, setActiveType] = useState(types[0])
@@ -13,6 +25,17 @@ export const PizzaBlock = ({name, imageUrl, types, sizes, price}) => {
     }
     const onActiveSizeClick = (size) => {
         setActiveSize(size)
+    }
+
+    const addPizza = () => {
+        dispatch(addPizzaAC({
+            name,
+            price,
+            imageUrl,
+            type: avaliableTypes[activeType],
+            size: activeSize,
+            count: 1
+        }))
     }
 
     return (
@@ -53,7 +76,8 @@ export const PizzaBlock = ({name, imageUrl, types, sizes, price}) => {
                     )}
                 </ul>
             </div>
-            <div className="pizza-block__bottom">
+            <div  onClick={() => addPizza()}
+                className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
                 <div className="button button--outline button--add">
                     <svg
@@ -69,7 +93,7 @@ export const PizzaBlock = ({name, imageUrl, types, sizes, price}) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
+                    {addedPizzasCount === 0 ? '' : <i>{addedPizzasCount}</i>}
                 </div>
             </div>
         </div>

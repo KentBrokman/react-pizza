@@ -6,24 +6,24 @@ import {Cart, Home} from "./pages";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {connect, useDispatch, useSelector} from "react-redux";
-import {getPizzasAC} from "./Redux/pizzas-reducer";
-import {getPizzas} from "./Redux/selectors/pizzas-selectors";
+import {getPizzas, getPizzasAC, setLoading} from "./Redux/pizzas-reducer";
+import {getPizzasSelector} from "./Redux/selectors/pizzas-selectors";
+
 
 
 function App() {
-    const pizzas = useSelector(getPizzas)
-    console.log(pizzas)
-
+    const pizzas = useSelector(getPizzasSelector)
     const dispatch = useDispatch()
     useEffect(() => {
-      axios.get('http://localhost:3000/db.json').then(res => dispatch(getPizzasAC(res.data.pizzas)))
-    }, [])
+        dispatch(setLoading(true))
+        dispatch(getPizzas())
+    }, [pizzas.sortBy, pizzas.category])
     return (
         <div className="App">
             <div className="wrapper">
                 <Header/>
                 <div className="content">
-                    <Route exact path='/' render={() => <Home pizzas={pizzas}/>}/>
+                    <Route exact path='/' render={() => <Home pizzas={pizzas.pizzas} isLoading={pizzas.isLoading}/>}/>
                     <Route exact path='/cart' render={() => <Cart/>}/>
                 </div>
             </div>

@@ -1,10 +1,14 @@
+import React from "react";
 import {useEffect, useRef, useState} from "react";
+import {useDispatch} from "react-redux";
+import {setSortByAC} from "../Redux/pizzas-reducer";
 
 
-export const SortPopup = ({text}) => {
+export const SortPopup = React.memo(({text}) => {
     const popupRef = useRef(null)
     const [popupIsActive, togglePopupIsActive] = useState(false)
     const [popupElementIsActive, setPopupElementIsActive] = useState(0)
+    const dispatch = useDispatch()
     const hidePopup = () => {
         togglePopupIsActive(false)
         document.removeEventListener('click', handler)
@@ -20,6 +24,7 @@ export const SortPopup = ({text}) => {
 
     const onPopupClick = (index) => {
         setPopupElementIsActive(index)
+        dispatch(setSortByAC(index))
         hidePopup()
     }
     useEffect(() => {
@@ -61,4 +66,4 @@ export const SortPopup = ({text}) => {
             </div>}
         </div>
     )
-}
+})

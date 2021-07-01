@@ -1,9 +1,19 @@
+import {useSelector} from "react-redux";
+import {getCartSelector} from "../Redux/selectors/cart-selectors";
 
 
-export const Button = () => {
+export const ButtonCart = () => {
+    const cart = useSelector(getCartSelector).cart
+    console.log(cart)
+    let allPizzasPrice = 0
+    let allPizzasCount = 0
+    if (cart.length !== 0) {
+        allPizzasPrice = cart.reduce((cur, sum) => cur + (sum.price * sum.count), 0)
+        allPizzasCount = cart.reduce((cur, sum) => cur + sum.count, 0)
+    }
     return (
         <div className="button button--cart">
-            <span>520 ₽</span>
+            <span>{allPizzasPrice} ₽</span>
             <div className="button__delimiter"></div>
             <svg
                 width="18"
@@ -34,7 +44,7 @@ export const Button = () => {
                     strokeLinejoin="round"
                 />
             </svg>
-            <span>3</span>
+            <span>{allPizzasCount}</span>
         </div>
     )
 }

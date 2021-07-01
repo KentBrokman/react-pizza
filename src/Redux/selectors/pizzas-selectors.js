@@ -1,5 +1,5 @@
 
 
-export const getPizzas = (state) => {
-    return state.pizzas.pizzas
+export const getPizzasSelector = (state) => {
+    return state.pizzas
 }
