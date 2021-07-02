@@ -5,16 +5,16 @@ import {addPizzaAC} from "../../Redux/cart-reducer";
 import {getCartSelector} from "../../Redux/selectors/cart-selectors";
 
 
-export const PizzaBlock = ({types, sizes, imageUrl, name, price}) => {
+export const PizzaBlock = ({id, types, sizes, imageUrl, name, price, onClickAddPizza, addedPizzasCount}) => {
     const dispatch = useDispatch()
-    const cart = useSelector(getCartSelector).cart
-    let addedPizzasCount = 0
-    if (cart.length > 0) {
-        let addedPizza = cart.find(item => item.name === name)
-        if (addedPizza) {
-            addedPizzasCount = addedPizza.count
-        }
-    }
+    // const cart = useSelector(getCartSelector).cart
+    // let addedPizzasCount = 0
+    // if (cart.length > 0) {
+    //     let addedPizza = cart.find(item => item.name === name)
+    //     if (addedPizza) {
+    //         addedPizzasCount = addedPizza.count
+    //     }
+    // }
     const avaliableTypes = ['тонкое', 'традиционное']
     const avaliableSizes = [26, 30, 40]
     const [activeType, setActiveType] = useState(types[0])
@@ -27,15 +27,27 @@ export const PizzaBlock = ({types, sizes, imageUrl, name, price}) => {
         setActiveSize(size)
     }
 
-    const addPizza = () => {
-        dispatch(addPizzaAC({
+    // const addPizza = () => {
+    //     dispatch(addPizzaAC({
+    //         name,
+    //         price,
+    //         imageUrl,
+    //         type: avaliableTypes[activeType],
+    //         size: activeSize,
+    //         count: 1
+    //     }))
+    // }
+
+    const onAddPizza = () => {
+        const obj = {
+            id,
             name,
             price,
             imageUrl,
             type: avaliableTypes[activeType],
-            size: activeSize,
-            count: 1
-        }))
+            size: activeSize
+        }
+        onClickAddPizza(obj)
     }
 
     return (
@@ -76,7 +88,7 @@ export const PizzaBlock = ({types, sizes, imageUrl, name, price}) => {
                     )}
                 </ul>
             </div>
-            <div  onClick={() => addPizza()}
+            <div  onClick={onAddPizza}
                 className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
                 <div className="button button--outline button--add">
@@ -93,7 +105,7 @@ export const PizzaBlock = ({types, sizes, imageUrl, name, price}) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    {addedPizzasCount === 0 ? '' : <i>{addedPizzasCount}</i>}
+                    {addedPizzasCount ? <i>{addedPizzasCount}</i> : ''}
                 </div>
             </div>
         </div>
