@@ -4,12 +4,12 @@ import {useDispatch} from "react-redux";
 import {clearCartAC} from "../../Redux/cart-reducer";
 
 
-export const FilledCart = ({pizzas}) => {
+export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
     const dispatch = useDispatch()
-    const allPizzasCount = pizzas.reduce((current, sum) => {
-        return current + sum.count
-    }, 0)
-    const allPizzasPrice = pizzas.reduce((current, sum) => current + (sum.count * sum.price), 0)
+    // const allPizzasCount = pizzas.reduce((current, sum) => {
+    //     return current + sum.count
+    // }, 0)
+    // const allPizzasPrice = pizzas.reduce((current, sum) => current + (sum.count * sum.price), 0)
     const onClearCart = () => {
         dispatch(clearCartAC())
     }
@@ -50,12 +50,12 @@ export const FilledCart = ({pizzas}) => {
                     </div>
                 </div>
                 <div className="content__items">
-                    {pizzas.map((pizza) => <CartItem key={pizza.name} pizza={pizza}/>)}
+                    {pizzas.map((pizza) => <CartItem key={pizza.id} pizza={pizza}/>)}
                 </div>
                 <div className="cart__bottom">
                     <div className="cart__bottom-details">
-                        <span> Всего пицц: <b>{allPizzasCount} шт.</b> </span>
-                        <span> Сумма заказа: <b>{allPizzasPrice} ₽</b> </span>
+                        <span> Всего пицц: <b>{totalCount} шт.</b> </span>
+                        <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
                     </div>
                     <div className="cart__bottom-buttons">
                         <a href="/" className="button button--outline button--add go-back-btn">

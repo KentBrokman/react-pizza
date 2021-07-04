@@ -4,12 +4,17 @@ import {getCartSelector} from "../Redux/selectors/cart-selectors";
 import React from "react";
 
 export const Cart = () => {
-    const cart = useSelector(getCartSelector)
+    const {items, totalCount, totalPrice} = useSelector(({cart}) => cart)
+    const pizzas = Object.values(items).map(arr => arr[0])
+    console.log(pizzas)
     return (
         <>
-            {cart.cart.length === 0 ?
+            {totalCount === 0 ?
                 <EmptyCart/> :
-                <FilledCart pizzas={cart.cart}/>
+                <FilledCart pizzas={pizzas} 
+                            totalCount={totalCount} 
+                            totalPrice={totalPrice}
+                />
             }
         </>
     )

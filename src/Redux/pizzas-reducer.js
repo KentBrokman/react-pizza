@@ -66,7 +66,7 @@ export const getPizzas = () => (dispatch, getState) => {
     //     dispatch(getPizzasAC(res.data))
     //     // console.log(state)
     // })
-    axios.get('http://localhost:3002/pizzas', {
+    axios.get('/pizzas', {
         params: {
             category: state.category,
             _sort: state.sortBy,

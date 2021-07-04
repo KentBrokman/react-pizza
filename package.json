@@ -47,5 +47,6 @@
   "devDependencies": {
     "gulp-sass": "^5.0.0",
     "json-server": "^0.16.3"
-  }
+  },
+  "proxy": "http://localhost:3002"
 }
