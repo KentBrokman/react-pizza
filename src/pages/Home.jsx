@@ -9,10 +9,8 @@ import { addPizzaAC } from "../Redux/cart-reducer";
 export const Home = ({pizzas, isLoading}) => {
     const dispatch = useDispatch()
     const cartItems = useSelector(({cart}) => cart.items)
-    console.log(cartItems)
     const onClickAddPizza = (obj) => {
         dispatch(addPizzaAC(obj))
-        console.log(obj)
     }
     return (
         <div className="container">
@@ -27,7 +25,7 @@ export const Home = ({pizzas, isLoading}) => {
                      :
                     pizzas.map(block => <PizzaBlock key={block.id} 
                                                     onClickAddPizza={onClickAddPizza} 
-                                                    addedPizzasCount={cartItems[block.id] && cartItems[block.id].length}
+                                                    addedPizzasCount={cartItems[block.id] && cartItems[block.id].onePizzaTypeTotalCount}
                                                     {...block}/>)
                 }
             </div>

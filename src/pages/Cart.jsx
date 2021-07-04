@@ -1,12 +1,17 @@
 import {EmptyCart, FilledCart} from "../components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getCartSelector} from "../Redux/selectors/cart-selectors";
 import React from "react";
+import {clearCartAC} from "../Redux/cart-reducer";
 
 export const Cart = () => {
+    // const dispatch = useDispatch()
+    // const onClearCart = () => {
+    //     dispatch(clearCartAC())
+    // }
+
     const {items, totalCount, totalPrice} = useSelector(({cart}) => cart)
-    const pizzas = Object.values(items).map(arr => arr[0])
-    console.log(pizzas)
+    const pizzas = Object.values(items)
     return (
         <>
             {totalCount === 0 ?

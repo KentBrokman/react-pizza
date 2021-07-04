@@ -32,7 +32,7 @@ export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
                         </svg>
                         Корзина
                     </h2>
-                    <div onClick={() => onClearCart()}
+                    <div onClick={onClearCart}
                         className="cart__clear">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2.5 5H4.16667H17.5" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round"
@@ -50,7 +50,7 @@ export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
                     </div>
                 </div>
                 <div className="content__items">
-                    {pizzas.map((pizza) => <CartItem key={pizza.id} pizza={pizza}/>)}
+                    {pizzas.map((pizza) => <CartItem key={pizza.onePizzaTypeItems[0].id} pizza={pizza}/>)}
                 </div>
                 <div className="cart__bottom">
                     <div className="cart__bottom-details">

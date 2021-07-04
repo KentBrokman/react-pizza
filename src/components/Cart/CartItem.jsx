@@ -14,18 +14,20 @@ export const CartItem = ({pizza}) => {
     const onSubtractPizza = () => {
         dispatch(subtractPizzaAC(pizza))
     }
+    const onePizza = pizza.onePizzaTypeItems[0]
+    console.log(onePizza)
     return (
         <div className="cart__item">
             <div className="cart__item-img">
                 <img
                     className="pizza-block__image"
-                    src={pizza.imageUrl}
+                    src={onePizza.imageUrl}
                     alt="Pizza"
                 />
             </div>
             <div className="cart__item-info">
-                <h3>{pizza.name}</h3>
-                <p>{pizza.type} тесто, {pizza.size} см.</p>
+                <h3>{onePizza.name}</h3>
+                <p>{onePizza.type} тесто, {onePizza.size} см.</p>
             </div>
             <div className="cart__item-count">
                 <div onClick={() => onSubtractPizza()}
@@ -41,7 +43,7 @@ export const CartItem = ({pizza}) => {
                     </svg>
 
                 </div>
-                <b>{pizza.count}</b>
+                <b>{pizza.onePizzaTypeTotalCount}</b>
                 <div onClick={() => onAddPizza()}
                     className="button button--outline button--circle cart__item-count-plus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -57,7 +59,7 @@ export const CartItem = ({pizza}) => {
                 </div>
             </div>
             <div className="cart__item-price">
-                <b>{pizza.price * pizza.count} ₽</b>
+                <b>{pizza.onePizzaTypeTotalPrice} ₽</b>
             </div>
             <div onClick={() => onRemovePizza()}
                 className="cart__item-remove">
