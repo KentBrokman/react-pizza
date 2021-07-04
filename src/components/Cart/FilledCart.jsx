@@ -1,19 +1,28 @@
 import React from "react";
 import {CartItem} from "./CartItem";
 import {useDispatch} from "react-redux";
-import {clearCartAC} from "../../Redux/cart-reducer";
+import {clearCartAC, minusPizzaAC, plusPizzaAC, removePizzaAC} from "../../Redux/cart-reducer";
+import { Link } from "react-router-dom";
 
 
 export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
     const dispatch = useDispatch()
-    // const allPizzasCount = pizzas.reduce((current, sum) => {
-    //     return current + sum.count
-    // }, 0)
-    // const allPizzasPrice = pizzas.reduce((current, sum) => current + (sum.count * sum.price), 0)
+    
     const onClearCart = () => {
         dispatch(clearCartAC())
     }
 
+    const onRemovePizza = (id) => {
+        dispatch(removePizzaAC(id))
+    }
+    
+    const onPlusPizza = (id) => {
+        dispatch(plusPizzaAC(id))
+    }
+
+    const onMinusPizza = (id) => {
+        dispatch(minusPizzaAC(id))
+    }
     return (
         <div className="container container--cart">
             <div className="cart">
@@ -50,7 +59,11 @@ export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
                     </div>
                 </div>
                 <div className="content__items">
-                    {pizzas.map((pizza) => <CartItem key={pizza.onePizzaTypeItems[0].id} pizza={pizza}/>)}
+                    {pizzas.map((pizza) => <CartItem key={pizza.onePizzaTypeItems[0].id} 
+                                                     pizza={pizza} 
+                                                     onRemovePizza={onRemovePizza} 
+                                                     onPlusPizza={onPlusPizza} 
+                                                     onMinusPizza={onMinusPizza}/>)} 
                 </div>
                 <div className="cart__bottom">
                     <div className="cart__bottom-details">
@@ -58,7 +71,7 @@ export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
                         <span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
                     </div>
                     <div className="cart__bottom-buttons">
-                        <a href="/" className="button button--outline button--add go-back-btn">
+                        <Link to="/" className="button button--outline button--add go-back-btn">
                             <svg width="8" height="14" viewBox="0 0 8 14" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7 13L1 6.93015L6.86175 1" stroke="#D3D3D3" strokeWidth="1.5"
@@ -66,7 +79,7 @@ export const FilledCart = ({pizzas, totalCount, totalPrice}) => {
                             </svg>
 
                             <span>Вернуться назад</span>
-                        </a>
+                        </Link>
                         <div className="button pay-btn">
                             <span>Оплатить сейчас</span>
                         </div>

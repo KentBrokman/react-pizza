@@ -3,19 +3,20 @@ import {useDispatch} from "react-redux";
 import {addPizzaAC, removePizzaAC, subtractPizzaAC} from "../../Redux/cart-reducer";
 
 
-export const CartItem = ({pizza}) => {
-    const dispatch = useDispatch()
-    const onAddPizza = () => {
-        dispatch(addPizzaAC(pizza))
-    }
-    const onRemovePizza = () => {
-        dispatch(removePizzaAC(pizza))
-    }
-    const onSubtractPizza = () => {
-        dispatch(subtractPizzaAC(pizza))
-    }
+export const CartItem = ({pizza, onRemovePizza, onPlusPizza, onMinusPizza}) => {
     const onePizza = pizza.onePizzaTypeItems[0]
-    console.log(onePizza)
+    const id = onePizza.id
+    
+    const onHandlePlusPizza = () => {
+        onPlusPizza(id)
+    }
+    const onHandleMinusPizza = () => {
+        onMinusPizza(id)
+    }
+    const onHandleRemovePizza = () => {
+        onRemovePizza(id)
+    }
+    
     return (
         <div className="cart__item">
             <div className="cart__item-img">
@@ -30,8 +31,8 @@ export const CartItem = ({pizza}) => {
                 <p>{onePizza.type} тесто, {onePizza.size} см.</p>
             </div>
             <div className="cart__item-count">
-                <div onClick={() => onSubtractPizza()}
-                    className="button button--outline button--circle cart__item-count-minus">
+                <div onClick={onHandleMinusPizza}
+                    className={`button button--outline button--circle cart__item-count-minus ${pizza.onePizzaTypeTotalCount === 1 ? 'disabled' : ''}`} >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -44,7 +45,7 @@ export const CartItem = ({pizza}) => {
 
                 </div>
                 <b>{pizza.onePizzaTypeTotalCount}</b>
-                <div onClick={() => onAddPizza()}
+                <div onClick={onHandlePlusPizza}
                     className="button button--outline button--circle cart__item-count-plus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +62,7 @@ export const CartItem = ({pizza}) => {
             <div className="cart__item-price">
                 <b>{pizza.onePizzaTypeTotalPrice} ₽</b>
             </div>
-            <div onClick={() => onRemovePizza()}
+            <div onClick={onHandleRemovePizza}
                 className="cart__item-remove">
                 <div className="button button--outline button--circle">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
