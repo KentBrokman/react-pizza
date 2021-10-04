@@ -13,7 +13,7 @@ export const Cart = () => {
     const {items, totalCount, totalPrice} = useSelector(({cart}) => cart)
     const pizzas = Object.values(items)
     return (
-        <>
+        <div>
             {totalCount === 0 ?
                 <EmptyCart/> :
                 <FilledCart pizzas={pizzas} 
@@ -21,6 +21,6 @@ export const Cart = () => {
                             totalPrice={totalPrice}
                 />
             }
-        </>
+        </div>
     )
 }

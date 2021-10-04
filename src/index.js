@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './scss/app.scss'
+
+import './css/app.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route} from 'react-router-dom'
 import {Header} from "./components";
 import {Provider} from "react-redux";
 import store from "./Redux/Redux-store";
+
 
 ReactDOM.render(
 

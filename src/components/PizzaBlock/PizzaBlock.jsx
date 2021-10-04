@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import cn from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import {addPizzaAC} from "../../Redux/cart-reducer";

@@ -1,4 +1,4 @@
-
+import React from 'react'
 import {Header, ComponentForTest, Categories, SortPopup} from "./components"
 import {Link, Route} from "react-router-dom";
 import {Cart, Home} from "./pages";
